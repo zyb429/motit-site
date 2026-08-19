@@ -13,7 +13,15 @@ import {
   ShoppingCart,
 } from 'lucide-react';
 
-const directions = [
+type DirectionItem = {
+  icon: typeof Headphones | typeof Shield | typeof ClipboardCheck | typeof Bug | 
+        typeof Home | typeof Code | typeof Globe | typeof Activity | 
+        typeof ShieldCheck | typeof ShoppingCart;
+  title: string;
+  description: string;
+};
+
+const directions: DirectionItem[] = [
   { icon: Headphones, title: 'Техническая поддержка', description: 'Круглосуточная помощь вашим пользователям. Решаем любые IT-проблемы быстро и эффективно.' },
   { icon: Shield, title: 'СЗИ', description: 'Средства защиты информации для соответствия требованиям безопасности и регуляторных стандартов.' },
   { icon: ClipboardCheck, title: 'Аудит, проектирование, создание и аттестация', description: 'Полный цикл работ с ИТ-инфраструктурой — от аудита до официальной аттестации систем.' },
@@ -41,16 +49,23 @@ export default function Directions() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
+         <div className="flex flex-wrap gap-4 md:gap-5 justify-center">
           {directions.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={index}
-                className={`reveal reveal-d${Math.min(index + 1, 9)} group cursor-pointer rounded-2xl p-5 md:p-6 transition-all duration-150 hover:-translate-y-1.5`}
+                className={`
+                  reveal reveal-d${Math.min(index + 1, 9)} 
+                  group cursor-pointer rounded-2xl p-5 md:p-6 
+                  transition-all duration-150 hover:-translate-y-1.5
+                  w-[calc(50%-10px)] sm:w-[calc(33.333%-14px)] 
+                  lg:w-[calc(25%-15px)] xl:w-[calc(20%-16px)]
+                `}
                 style={{
                   backgroundColor: '#0f2832',
                   border: '1px solid rgba(45, 212, 191, 0.08)',
+                  minHeight: '200px',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(45, 212, 191, 0.3)';

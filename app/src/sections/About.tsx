@@ -10,10 +10,44 @@ export default function About() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
+    
     const ctx = gsap.context(() => {
-      gsap.from('.about-image', { opacity: 0, scale: 1.02, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } });
-      gsap.from('.about-text > *', { opacity: 0, y: 40, duration: 0.8, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: '.about-text', start: 'top 85%' } });
+      // Анимация изображения
+      gsap.from('.about-image', { 
+        opacity: 0, 
+        scale: 1.02, 
+        duration: 1, 
+        ease: 'power3.out', 
+        scrollTrigger: { 
+          trigger: section, 
+          start: 'top 85%' 
+        } 
+      });
+
+      // Анимируем каждый элемент по отдельности для лучшего контроля
+      const textElements = [
+        '.about-label',
+        '.about-title',
+        '.about-text-p1',
+        '.about-text-p2',
+        '.about-btn'
+      ];
+
+      textElements.forEach((selector, i) => {
+        gsap.from(selector, {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: i * 0.15,
+          scrollTrigger: {
+            trigger: '.about-text',
+            start: 'top 85%',
+          }
+        });
+      });
     }, section);
+    
     return () => ctx.revert();
   }, []);
 
